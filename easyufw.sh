@@ -2,7 +2,7 @@ echo -n "Enter a ip "
 read ip
 echo -n "Enter the Port: "
 read port
-echo "Allow or Deny connections from $ip"
+echo "Allow or Deny connections from $ip to $port"
 select yn in "Allow" "Deny"; do
     case $yn in
         Allow ) ad=allow; break ;;
