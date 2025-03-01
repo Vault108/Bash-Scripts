@@ -10,10 +10,23 @@ select yn in "Allow" "Deny"; do
     esac
 done
 echo "TCP or UDP?"
-select yn in "TCP" "UDP"; do
+select yn in "TCP" "UDP" "BOTH"; do
     case $yn in
         TCP ) ut=tcp; break ;;
         UDP ) ut=udp; break ;;
+	BOTH ) ut=both; break;;
     esac
 done
-sudo ufw $ad from $ip proto $ut to any port $port
+
+if [[ "$ut" == "both" ]]; then
+sudo ufw $ad from $ip proto tcp to any port $port;
+sudo ufw $ad from $ip proto udp to any port $port;
+echo "Will $ad from $ip:$port on both TCP and UDP"
+elif [[ "$ut" == "tcp" ]]; then
+sudo ufw $ad from $ip proto $ut to any port $port;
+echo "Will $ad $ut $ip:$port "
+elif [[ "$ut" == "udp" ]]; then
+sudo ufw $ad from $ip proto $ut to any port $port;
+echo "Will $ad $ut $ip:$port"
+fi
+
