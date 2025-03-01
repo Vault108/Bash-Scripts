@@ -9,7 +9,7 @@ select yn in "Allow" "Deny"; do
         Deny  ) ad=deny;  break ;;
     esac
 done
-echo "TCP or UDP?"
+echo "What protocol did you want to $ad for $ip on port $port?"
 select yn in "TCP" "UDP" "BOTH"; do
     case $yn in
         TCP ) ut=tcp; break ;;
